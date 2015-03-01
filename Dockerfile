@@ -40,14 +40,10 @@ ADD php/www.conf /etc/php5/fpm/pool.d/www.conf
 RUN curl -sS https://getcomposer.org/installer | php && \
   mv composer.phar /usr/local/bin/composer
 
-# Setup the run script
-ADD run.sh /run.sh
-RUN chmod 755 /*.sh
-
 # Setup the public folder
 ADD app /app
 
 # Expose ports, set working directory and execute the run script
 EXPOSE 80 443
 WORKDIR /app
-CMD ["/run.sh"]
+CMD ["supervisord"]
